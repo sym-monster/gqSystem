@@ -1,0 +1,24 @@
+article,
+aside,
+details,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Microsoft YaHei";
+  font-size: 12px;
+}
+main {
+  display: block;
+}
