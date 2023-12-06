@@ -50,19 +50,19 @@ module.exports = {
   chainWebpack: () => {}, // 配置 webpack-dev-server 行为。
 
   devServer: {
-    open: process.platform === "darwin",
+    open: false, //process.platform === "darwin",
 
     host: "0.0.0.0",
-    public: "172.150.189.110:8080",
-    port: 8080,
+    public: "172.150.189.110:8080", //10.4.129.85:8080 xauat-x的IPv4地址  172.150.189.110:8080
+    port: " 8080",
 
     https: false,
-
+    disableHostCheck: true, //穿透
     hotOnly: false, // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/cli-service.md#配置代理
-
+    //disableHostCheck: true, //局域网问题
     proxy: {
       "/api": {
-        target: "http://app.rmsdmedia.com",
+        target: "http://app.rmsdmedia.com", //"http://localhost:3000" ,//"http://app.imooc.com", //"http://app.rmsdmedia.com",
 
         changeOrigin: true,
 
@@ -110,4 +110,6 @@ module.exports = {
   pluginOptions: {
     // ...
   },
+  
 };
+

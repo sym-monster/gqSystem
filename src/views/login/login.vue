@@ -1,197 +1,134 @@
 <template>
-  <div>
-    <div class="header">
-      <!-- 折叠按钮 -->
-      <div class="collapse-btn" @click="collapseChage">
-        <i v-if="!collapse" class="el-icon-s-fold"></i>
-        <i v-else class="el-icon-s-unfold"></i>
-      </div>
-      <div class="logo">骨签信息系统</div>
-    </div>
-    <div class="sidebar">
-      <el-menu
-        class="sidebar-el-menu"
-        :default-active="onRoutes"
-        :collapse="collapse"
-        background-color="#324157"
-        text-color="#bfcbd9"
-        active-text-color="#20a0ff"
-        unique-opened
-        router
+  <div class="login_container">
+    <div class="login_box">
+      <el-form
+        ref="loginForm"
+        :model="loginForm"
+        :rules="loginRules"
+        label-position="left"
+        label-width="0px"
+        class="login-form"
       >
-        <template v-for="item in items">
-          <template v-if="item.subs">
-            <el-submenu :index="item.index" :key="item.index">
-              <template slot="title">
-                <i :class="item.icon"></i>
-                <span slot="title">{{ item.title }}</span>
-              </template>
-              <template v-for="subItem in item.subs">
-                <el-submenu
-                  v-if="subItem.subs"
-                  :index="subItem.index"
-                  :key="subItem.index"
-                >
-                  <template slot="title">{{ subItem.title }}</template>
-                  <el-menu-item
-                    v-for="(threeItem, i) in subItem.subs"
-                    :key="i"
-                    :index="threeItem.index"
-                    >{{ threeItem.title }}</el-menu-item
-                  >
-                </el-submenu>
-                <el-menu-item
-                  v-else
-                  :index="subItem.index"
-                  :key="subItem.index"
-                  >{{ subItem.title }}</el-menu-item
-                >
-              </template>
-            </el-submenu>
-          </template>
-          <template v-else>
-            <el-menu-item :index="item.index" :key="item.index">
-              <i :class="item.icon"></i>
-              <span slot="title">{{ item.title }}</span>
-            </el-menu-item>
-          </template>
-        </template>
-      </el-menu>
+        <h1 class="title">欢迎使用骨签信息系统</h1>
+        <p></p>
+        <el-form-item prop="username">
+          <el-input
+            v-model="loginForm.username"
+            type="text"
+            auto-complete="off"
+            placeholder="请输入账户名"
+          >
+            <svg-icon
+              slot="prefix"
+              icon-class="user"
+              class="el-icon-user-solid"
+            />
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            v-model="loginForm.password"
+            type="password"
+            auto-complete="off"
+            placeholder="请输入密码"
+            show-password
+          >
+            <svg-icon
+              slot="prefix"
+              icon-class="password"
+              class="el-icon-lock"
+            />
+          </el-input>
+        </el-form-item>
+
+        <el-form-item style="width: 100%">
+          <el-button
+            size="medium"
+            type="primary"
+            style="width: 100%"
+            @click="goto(loginForm.username, loginForm.password, 'loginForm')"
+          >
+            <span>登 录</span>
+          </el-button>
+        </el-form-item>
+        <el-form-item style="width: 100%">
+          <el-button
+            size="medium"
+            type=""
+            style="width: 100%"
+            @click="resetForm('loginForm')"
+          >
+            <span>重 置</span>
+          </el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
+
 <script>
-import bus from "../common/bus";
+// 加密
+
 export default {
+  name: "Login",
   data() {
     return {
-      collapse: false,
-      fullscreen: false,
-      name: "linxin",
-      message: 2,
-
-      items: [
-        {
-          icon: "el-icon-menu",
-          index: "por",
-          title: "骨签编号",
-        },
-        {
-          icon: "el-icon-menu",
-          index: "2",
-          title: "预处理",
-          subs: [
-            {
-              index: "form",
-              title: "基本表单",
-            },
-            {
-              index: "3-2",
-              title: "三级菜单",
-              subs: [
-                {
-                  index: "editor",
-                  title: "富文本编辑器",
-                },
-                {
-                  index: "markdown",
-                  title: "markdown编辑器",
-                },
-              ],
-            },
-            {
-              index: "upload",
-              title: "文件上传",
-            },
-          ],
-        },
-        {
-          icon: "el-icon-menu",
-          index: "icon",
-          title: "缀合处理",
-        },
-        {
-          icon: "el-icon-menu",
-          index: "charts",
-          title: "组合处理",
-        },
-        {
-          icon: "el-icon-menu",
-          index: "6",
-          title: "文字处理",
-          subs: [
-            {
-              index: "drag",
-              title: "拖拽列表",
-            },
-            {
-              index: "dialog",
-              title: "拖拽弹框",
-            },
-          ],
-        },
-      ],
+      loginForm: {
+        username: "",
+        password: "",
+      },
     };
   },
-  computed: {
-    username() {
-      let username = localStorage.getItem("ms_username");
-      return username ? username : this.name;
-    },
-  },
   methods: {
-    // 侧边栏折叠
-    collapseChage() {
-      this.collapse = !this.collapse;
-      bus.$emit("collapse", this.collapse);
+    goto: function (a, b) {
+      this.a = a;
+      this.b = b;
+
+      if (a == "admin" && b == "123000") {
+        this.$router.push({
+          path: "/gqid",
+        });
+      } else {
+        this.$message.error("请填写正确的用户名及密码!");
+        return false;
+      } //带参跳转函数
+    }, //带参跳转函数
+    resetForm(formName3) {
+      this.$refs[formName3].resetFields();
     },
-  },
-  mounted() {
-    if (document.body.clientWidth < 1500) {
-      this.collapseChage();
-    }
   },
 };
 </script>
-<style lang="scss" scoped>
-.header {
-  position: absolute;
-  box-sizing: border-box;
+
+<style scoped>
+.login_container {
+  background-image: linear-gradient(-180deg, #1a1454 0%, #0e81a5 100%);
+  /*background-image: url("../images/bg_login.png");*/
   width: 100%;
-  height: 70px;
-  font-size: 22px;
-  left: 0;
-  top: 0;
-  color: #fff;
-  background-color: #242f42;
-}
-.collapse-btn {
-  float: left;
-  padding: 0 21px;
-  cursor: pointer;
-  line-height: 70px;
-}
-.header .logo {
-  float: left;
-  width: 250px;
-  line-height: 70px;
+  position: absolute;
+  height: 100%;
 }
 
-.sidebar {
-  display: block;
+.login_box {
+  /* background-color: #fff; */
+  border-radius: 10px;
+  background-color: #2e527bb3;
+  height: 500px;
   position: absolute;
-  left: 0;
-  top: 70px;
-  bottom: 0;
-  overflow-y: scroll;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
-.sidebar::-webkit-scrollbar {
-  width: 0;
+.title {
+  margin: 40px auto 70px auto;
+  text-align: center;
+  color: #ffffff;
 }
-.sidebar-el-menu:not(.el-menu--collapse) {
-  width: 250px;
-}
-.sidebar > ul {
-  height: 100%;
+
+.login-form {
+  border-radius: 6px;
+
+  width: 385px;
+  padding: 25px 25px 5px 25px;
 }
 </style>

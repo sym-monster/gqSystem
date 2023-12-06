@@ -64,27 +64,27 @@ export default {
           title: "骨签编号",
           subs: [
             {
-              index: "1-1",
-              title: "骨签编号类型",
-              subs: [
-                {
-                  index: "gqid",
-                  title: "008479号",
-                },
-                {
-                  index: "gqid1",
-                  title: "008480号",
-                },
-              ],
+              index: "gqid",
+              title: "骨签信息",
+              // subs: [
+              //   {
+              //     index: "gqid",
+              //    title: "008479号",
+              //   },
+              //   {
+              //    index: "gqid1",
+              //     title: "008480号",
+              //  },
+              // ],
             },
-            {
-              index: "upload",
-              title: "骨签类型",
-            },
+            // {
+            //   index: "upload",
+            //   title: "骨签类型",
+            // },
           ],
         },
 
-        {
+        /* {
           icon: "el-icon-s-platform",
           index: "2",
           title: "预处理",
@@ -121,10 +121,21 @@ export default {
           index: "gqzh",
           title: "组合处理",
         },
+        */
         {
           icon: "el-icon-s-release",
-          index: "gqwz",
-          title: "文字处理",
+          index: "gqcheck",
+          title: "批量查询",
+        },
+        {
+          icon: "el-icon-edit",
+          index: "gqinsert",
+          title: "信息录入",
+        },
+        {
+          icon: "el-icon-edit",
+          index: "gqinsert3",
+          title: "释文录入",
         },
       ],
     };

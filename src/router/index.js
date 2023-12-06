@@ -8,7 +8,13 @@ export default new VueRouter({
   routes: [
     {
       path: "/",
-      redirect: "/gqid",
+      redirect: "/login",
+    },
+    {
+      path: "/login",
+      component: () =>
+        import(/* webpackChunkName: "home" */ "../views/login/login.vue"),
+      meta: { title: "登录页面" },
     },
     {
       path: "/",
@@ -61,10 +67,24 @@ export default new VueRouter({
         },
         {
           //
-          path: "/gqwz",
+          path: "/gqcheck",
           component: () =>
-            import(/* webpackChunkName: "editor" */ "../views/login/wzcl.vue"),
-          meta: { title: "文字处理" },
+            import(/* webpackChunkName: "editor" */ "../views/login/check.vue"),
+          meta: { title: "批量查询" },
+        },
+        {
+          //
+          path: "/edit",
+          component: () =>
+            import(/* webpackChunkName: "editor" */ "../views/login/edit.vue"),
+          meta: { title: "信息修改" },
+        },
+        {
+          //
+          path: "/bhedit",
+          component: () =>
+            import(/* webpackChunkName: "editor" */ "../views/login/bhedit.vue"),
+          meta: { title: "查询信息修改" },
         },
         {
           //
@@ -74,6 +94,47 @@ export default new VueRouter({
               /* webpackChunkName: "editor" */ "../views/login/zhuihecl.vue"
             ),
           meta: { title: "缀合处理" },
+        },
+        {
+          //
+          path: "/gqinsert",
+          component: () =>
+            import(
+              /* webpackChunkName: "editor" */ "../views/login/insert.vue"
+            ),
+          meta: { title: "信息录入" },
+        },
+        {
+          //
+          path: "/gqinsert2",
+          component: () =>
+            import(
+              /* webpackChunkName: "editor" */ "../views/login/insert2.vue"
+            ),
+          meta: { title: "释文信息" },
+        },
+        {
+          //
+          path: "/gqinsert3",
+          component: () =>
+            import(
+              /* webpackChunkName: "editor" */ "../views/login/insert3.vue"
+            ),
+          meta: { title: "释文信息" },
+        },
+        {
+          //
+          path: "/ceshi2",
+          component: () =>
+            import(/* webpackChunkName: "editor" */ "../views/login/test2.vue"),
+          meta: { title: "释文信息" },
+        },
+        {
+          //
+          path: "/ceshi3",
+          component: () =>
+            import(/* webpackChunkName: "editor" */ "../views/login/test3.vue"),
+          meta: { title: "释文信息" },
         },
       ],
     },
